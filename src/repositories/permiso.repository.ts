@@ -5,7 +5,7 @@ import {Permiso, PermisoRelations} from '../models';
 
 export class PermisoRepository extends DefaultCrudRepository<
   Permiso,
-  typeof Permiso.prototype.id,
+  typeof Permiso.prototype._id,
   PermisoRelations
 > {
   constructor(

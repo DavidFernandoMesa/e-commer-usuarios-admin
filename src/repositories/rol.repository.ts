@@ -8,15 +8,15 @@ import {PermisoRepository} from './permiso.repository';
 
 export class RolRepository extends DefaultCrudRepository<
   Rol,
-  typeof Rol.prototype.id,
+  typeof Rol.prototype._id,
   RolRelations
 > {
 
-  public readonly usuarios: HasManyRepositoryFactory<Usuario, typeof Rol.prototype.id>;
+  public readonly usuarios: HasManyRepositoryFactory<Usuario, typeof Rol.prototype._id>;
 
-  public readonly tiene_permisos: HasManyThroughRepositoryFactory<Permiso, typeof Permiso.prototype.id,
+  public readonly tiene_permisos: HasManyThroughRepositoryFactory<Permiso, typeof Permiso.prototype._id,
           PermisoRol,
-          typeof Rol.prototype.id
+          typeof Rol.prototype._id
         >;
 
   constructor(
@@ -26,6 +26,5 @@ export class RolRepository extends DefaultCrudRepository<
     this.tiene_permisos = this.createHasManyThroughRepositoryFactoryFor('tiene_permisos', permisoRepositoryGetter, permisoRolRepositoryGetter,);
     this.registerInclusionResolver('tiene_permisos', this.tiene_permisos.inclusionResolver);
     this.usuarios = this.createHasManyRepositoryFactoryFor('usuarios', usuarioRepositoryGetter,);
-    this.registerInclusionResolver('usuarios', this.usuarios.inclusionResolver);
   }
 }

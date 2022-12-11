@@ -6,22 +6,17 @@ import {PermisoRol} from './permiso-rol.model';
 @model()
 export class Rol extends Entity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
     generated: true,
   })
-  id?: number;
+  _id?: string;
 
   @property({
     type: 'string',
     required: true,
   })
   nombre: string;
-
-  @property({
-    type: 'number',
-  })
-  id_rol?: number;
 
   @hasMany(() => Usuario, {keyTo: 'id_rol'})
   usuarios: Usuario[];

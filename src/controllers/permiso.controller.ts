@@ -37,12 +37,12 @@ export class PermisoController {
         'application/json': {
           schema: getModelSchemaRef(Permiso, {
             title: 'NewPermiso',
-            exclude: ['id'],
+            exclude: ['_id'],
           }),
         },
       },
     })
-    permiso: Omit<Permiso, 'id'>,
+    permiso: Omit<Permiso, '_id'>,
   ): Promise<Permiso> {
     return this.permisoRepository.create(permiso);
   }
@@ -105,7 +105,7 @@ export class PermisoController {
     },
   })
   async findById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @param.filter(Permiso, {exclude: 'where'}) filter?: FilterExcludingWhere<Permiso>
   ): Promise<Permiso> {
     return this.permisoRepository.findById(id, filter);
@@ -116,7 +116,7 @@ export class PermisoController {
     description: 'Permiso PATCH success',
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -134,7 +134,7 @@ export class PermisoController {
     description: 'Permiso PUT success',
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody() permiso: Permiso,
   ): Promise<void> {
     await this.permisoRepository.replaceById(id, permiso);
@@ -144,7 +144,7 @@ export class PermisoController {
   @response(204, {
     description: 'Permiso DELETE success',
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.permisoRepository.deleteById(id);
   }
 }

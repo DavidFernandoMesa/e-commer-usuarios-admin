@@ -40,7 +40,7 @@ export class RolPermisoController {
     },
   })
   async find(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @param.query.object('filter') filter?: Filter<Permiso>,
   ): Promise<Permiso[]> {
     return this.rolRepository.tiene_permisos(id).find(filter);
@@ -55,17 +55,17 @@ export class RolPermisoController {
     },
   })
   async create(
-    @param.path.number('id') id: typeof Rol.prototype.id,
+    @param.path.string('id') id: typeof Rol.prototype._id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(Permiso, {
             title: 'NewPermisoInRol',
-            exclude: ['id'],
+            exclude: ['_id'],
           }),
         },
       },
-    }) permiso: Omit<Permiso, 'id'>,
+    }) permiso: Omit<Permiso, '_id'>,
   ): Promise<Permiso> {
     return this.rolRepository.tiene_permisos(id).create(permiso);
   }
@@ -79,7 +79,7 @@ export class RolPermisoController {
     },
   })
   async patch(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody({
       content: {
         'application/json': {
@@ -102,7 +102,7 @@ export class RolPermisoController {
     },
   })
   async delete(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @param.query.object('where', getWhereSchemaFor(Permiso)) where?: Where<Permiso>,
   ): Promise<Count> {
     return this.rolRepository.tiene_permisos(id).delete(where);

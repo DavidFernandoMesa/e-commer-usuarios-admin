@@ -5,7 +5,7 @@ import {PermisoRol, PermisoRolRelations} from '../models';
 
 export class PermisoRolRepository extends DefaultCrudRepository<
   PermisoRol,
-  typeof PermisoRol.prototype.id,
+  typeof PermisoRol.prototype._id,
   PermisoRolRelations
 > {
   constructor(

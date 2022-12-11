@@ -1,14 +1,14 @@
-import {Entity, model, property, hasOne} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {Rol} from './rol.model';
 
 @model()
 export class Usuario extends Entity {
   @property({
-    type: 'number',
+    type: 'string',
     id: true,
     generated: true,
   })
-  id?: number;
+  _id?: string;
 
   @property({
     type: 'string',
@@ -23,16 +23,16 @@ export class Usuario extends Entity {
   correo: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     required: true,
   })
-  celular: number;
+  clave: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  clave: string;
+  celular: string;
 
   @property({
     type: 'boolean',
@@ -40,13 +40,8 @@ export class Usuario extends Entity {
   })
   estado?: boolean;
 
-  @hasOne(() => Rol, {keyTo: 'id_rol'})
-  tiene_un: Rol;
-
-  @property({
-    type: 'number',
-  })
-  id_rol?: number;
+  @belongsTo(() => Rol, {name: 'tiene_un'})
+  id_rol: string;
 
   constructor(data?: Partial<Usuario>) {
     super(data);
